@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Eugenio Alcala Baselga
+% Date: 02/06/2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [ A, B ] = A_OL_SYMPLIFIED_DYNAMIC_DISCRETE( V, ALPHA, DELTA, Ts )
  
     m       = vehicle.m;
@@ -16,7 +21,7 @@ function [ A, B ] = A_OL_SYMPLIFIED_DYNAMIC_DISCRETE( V, ALPHA, DELTA, Ts )
     F_drag       = 0.5*ro*Cd*Area*V*V;
       
 
-    %% Matriz A de 6x6 (con filtro añadido e integral part añadida)
+    %% Matriz A de 6x6 (con filtro aÃ±adido e integral part aÃ±adida)
     A1 = -(F_drag+F_rozamiento) / (m*V);
     A2 = Cf*(sin(DELTA)*cos(ALPHA)-sin(ALPHA)*cos(DELTA)-sin(ALPHA)) / m;
 %     A3 = Cf*(a*(sin(DELTA)*cos(ALPHA)-sin(ALPHA)*cos(DELTA)) + b*sin(ALPHA)) / (m*V);
