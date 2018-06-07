@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Eugenio Alcala Baselga
+% Date: 02/06/2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [ Ac, Bc ] = KinemError_Dyn_LPV_Model (omega_SV,vel_SV,theta_E_SV,delta_SV,alpha_SV) %#codegen
        
 

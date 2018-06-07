@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Eugenio Alcala Baselga
+% Date: 02/06/2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [ A, B ] = A_OL_KINEMATIC_3VARS_DISCRETE( vd, omega, theta_Err, Ts )
 
     A3by3 = [1        omega*Ts   0; 

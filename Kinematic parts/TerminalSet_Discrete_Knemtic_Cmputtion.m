@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Eugenio Alcala Baselga
+% Date: 02/06/2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [ PP, WW ] = TerminalSet_Discrete_Knemtic_Cmputtion(Ts)
     %% Kinematic Controller computation:
     % System definition:

@@ -1,7 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author: Eugenio Alcala Baselga
-% Date: 02/03/2018
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Date: 02/06/2018
 %
 % Description: Vehicle control with MPC kinematic layer plus terminal
 % state, dynamic LPV-LQR state feedback and dynamic Moving Horizon
@@ -305,7 +304,6 @@ for KC=1:length(sim_time_vec)-Hp
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Dynamic LPV Control [DISCRETE]:
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %tic
     for tD=tK:Ts_Dcontrol:tK+Ts_Kcontrol
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -350,11 +348,9 @@ for KC=1:length(sim_time_vec)-Hp
         %\\ Vehicle simulation:
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         T = tD:Ts_Dcontrol/2:tD+Ts_Dcontrol; 
-%         [T,x] = ode45(@(t,x) dynamic_complex_model(t,x,[ ForceDist; Steer; Frict_Coeff(KC)]), T, x_Real);  
+        % [T,x] = ode45(@(t,x) dynamic_complex_model(t,x,[ ForceDist; Steer; Frict_Coeff(KC)]), T, x_Real);  
         [T,x] = ode45(@(t,x) dynamic_complex_model(t,x,[ ForceDist; Steer; 0.65]), T, x_Real);  
         x_Real = [x(end,1); x(end,2); x(end,3); x(end,4); x(end,5); x(end,6)];
-
-%         [ measured_Vars ] = New_States_Computation( x, ForceDist, Steer, Ts_Dcontrol );
         
         index_Dyn = index_Dyn + 1; 
 
@@ -367,12 +363,11 @@ for KC=1:length(sim_time_vec)-Hp
         end
         
     end % END DYNAMIC LOOP
-    %toc
 
-    %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Vectors for plotting:
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
-
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Vectors for plotting:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
     %% OBSERVER:  
     V_EST(KC)       = x_est(1);
     ALPHA_EST(KC)   = x_est(2);
@@ -381,9 +376,7 @@ for KC=1:length(sim_time_vec)-Hp
     
     OBS_ERR_V(KC)       = x_Real(4)-x_est(1);
     OBS_ERR_ALPHA(KC)   = x_Real(5)-x_est(2);
-    OBS_ERR_W(KC)       = x_Real(6)-x_est(3);
-%     OBS_ERR_FRICTION(KC)= F_friction(KC)-(Fric_Force+0.5*g*m);
-    
+    OBS_ERR_W(KC)       = x_Real(6)-x_est(3);    
     
     %% CONTROLLER VARIABLES:
     X_ERR(KC)       = x_err(1);
@@ -408,39 +401,11 @@ for KC=1:length(sim_time_vec)-Hp
     
     VEL_ERR(KC)     = v_d(KC)-VEL(KC);
     OMEGA_ERR(KC)   = w_d(KC)-OMEGA(KC);
-   
-%     IDENT_VARS(KC,:)= measured_Vars;
-        
+           
     counter = counter + 1;
-    if(counter > 50)
-        KC    
-%%
-color = 'b'; %[y m c r g b w k]
+    if(counter > 50) 
 
-%         figure(1)
-%       subplot(2,2,1)
-%         hold on, plot(3.6*VEL(1:KC),color);
-%         hold on, plot(3.6*v_d(1:KC),'--r')
-%         %hold on, plot(3.6*PLOT_U_KIN(1,1:KC),'--g')
-%         %hold on, plot(3.6*V_EST(1,1:KC),'--black')
-%         ylabel('Velocity [Km/h]'), grid on
-%         %legend('Vehicle resp.','Planner ref.','MPC output')  
-%       subplot(2,2,2)
-%         hold on, plot(RADTODEG*OMEGA(1:KC),color);
-%         hold on, plot(RADTODEG*w_d(1:KC),'--r')
-%         %hold on, plot(PLOT_U_KIN(2,1:KC),'g')
-%         %hold on, plot(W_EST(1,1:KC),'--black')
-%         ylabel('Ang. Vel. [ยบ/s]'), grid on
-%         %legend('Vehicle resp.','Planner ref.','MPC output') 
-%       subplot(2,2,3)
-%         hold on, plot(DYNAMIC_CA(1,1:KC),color);
-% %         hold on, plot(DYNAMIC_CA(2,1:KC),color);
-%         ylabel('Force [N]'), grid on  
-%       subplot(2,2,4)
-%         hold on, plot(RADTODEG*DYNAMIC_CA(3,1:KC),color)
-%         ylabel('Steering Angle [ยบ]'), grid on
-
-        
+        color = 'b'; %[y m c r g b w k]       
         figure(2)   
       subplot(5,1,1)
         hold on, plot(X_ERR(1:KC),color);
@@ -450,64 +415,31 @@ color = 'b'; %[y m c r g b w k]
         ylabel('Lateral error [m]'), grid on
       subplot(5,1,3)
         hold on, plot(RADTODEG*THETA_ERR(1:KC),color)
-        ylabel('Orientation error [ยบ]'), grid on
+        ylabel('Orientation error [บ]'), grid on
       subplot(5,1,4)
         hold on, plot(3.6*VEL_ERR(1:KC),color)
         ylabel('Vel error [km/h]'), grid on
       subplot(5,1,5)
         hold on, plot(RADTODEG*OMEGA_ERR(1:KC),color)
-        ylabel('Ang. Vel error [ยบ/s]'), grid on
-       
-        
-%         figure(3)
-%       subplot(2,2,1)
-%         hold on, plot(OBS_ERR_V(1:KC),'r');
-%         ylabel('Error Vel'), grid on
-%       subplot(2,2,2)
-%         hold on, plot(OBS_ERR_W(1:KC),'r');
-%         ylabel('Error Omega '), grid on
-%       subplot(2,2,3)
-%         hold on, plot(OBS_ERR_ALPHA(1:KC),'r');
-%         ylabel('Error Alpha'), grid on
-%       subplot(2,2,4)
-%         hold on, plot(OBS_ERR_FRICTION(1:KC),'r')
-%         ylabel('Error Force Friction'), grid on
-        
-
-% %       subplot(5,2,5)
-% %         hold on, plot(ALPHA(1:KC),'--blue','LineWidth',1.2);
-% %         hold on, plot(ALPHA_EST,'black')                        %% <------
-% %         ylabel('\alpha [rad]'), grid on
-% %         %legend('Real','Estimated') 
-% %       subplot(5,2,6)  
-% %         hold on, plot(X(1:KC-1),Y(1:KC-1),'red')
-% %         hold on, plot(x_d(1:KC),y_d(1:KC),'black')
-% %         %hold on, plot(x_predicted(1,:),x_predicted(2,:), 'g', 'linewidth',3)
-% %         ylabel('Y [m]'),xlabel('X [m]'),grid on
-        %%
+        ylabel('Ang. Vel error [บ/s]'), grid on
         drawnow
         counter = 0;
     end
     
 end % END KINEMATIC LOOP
 
-%%
 color = 'b';
 
 figure(1)
 subplot(2,1,1)
 hold on, plot(sim_time_vec(1,1:KC),3.6*VEL(1:KC),color,'linewidth',0.8);
 hold on, plot(sim_time_vec(1,1:KC),3.6*v_d(1:KC),'--r','linewidth',0.7)
-%hold on, plot(3.6*PLOT_U_KIN(1,1:KC),'--g')
-%hold on, plot(3.6*V_EST(1,1:KC),'--black')
 ylabel('Linear velocity [Km/h]'), grid on
 xlabel('Time [s]')
 subplot(2,1,2)
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*OMEGA(1:KC),color,'linewidth',0.8);
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*w_d(1:KC),'--r','linewidth',0.7);
-%hold on, plot(PLOT_U_KIN(2,1:KC),'g')
-%hold on, plot(W_EST(1,1:KC),'--black')
-ylabel('Angular velocity [ยบ/s]'), grid on
+ylabel('Angular velocity [บ/s]'), grid on
 xlabel('Time [s]')
 
 figure(2)
@@ -517,8 +449,7 @@ hold on, plot(sim_time_vec(1,1:KC),DYNAMIC_CA(2,1:KC),color,'linewidth',0.8);   
 ylabel('Force [N]'), grid on  
 subplot(2,1,2)
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*DYNAMIC_CA(3,1:KC),color,'linewidth',0.8);
-ylabel('Steering Angle [ยบ]'), grid on
-
+ylabel('Steering Angle [บ]'), grid on
 
 figure(3)   
 subplot(5,1,1)
@@ -529,15 +460,14 @@ hold on, plot(sim_time_vec(1,1:KC),Y_ERR(1:KC),color,'linewidth',0.8);
 title('Lateral error [m]'), grid on
 subplot(5,1,3)
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*THETA_ERR(1:KC),color,'linewidth',0.8);
-title('Orientation error [ยบ]'), grid on
+title('Orientation error [บ]'), grid on
 subplot(5,1,4)
 hold on, plot(sim_time_vec(1,1:KC),3.6*VEL_ERR(1:KC),color,'linewidth',0.8);
 title('Lnear velocity error [km/h]'), grid on
 subplot(5,1,5)
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*OMEGA_ERR(1:KC),color,'linewidth',0.8);
-title('Angular elocity error [ยบ/s]'), grid on
+title('Angular elocity error [บ/s]'), grid on
         
-%%
 figure(4)
 hold on, 
 plot(TOC_PLOT(1:KC),'black')
@@ -545,7 +475,6 @@ grid on
 ylabel('Elapsed time [s]')
 xlabel('Iterations')
 Mean_ElapsedTime = (sum(TOC_PLOT(1:KC)))/length(TOC_PLOT(1:KC))
-
 
 figure(5)
 hold on, plot(sim_time_vec(1:KC),F_FRICTION(1:KC) + 0.5*9.81*683,'black')
@@ -566,37 +495,33 @@ grid on
 xlabel('X [m]')
 ylabel('Y [m]')
 
-    color = 'g'
-    figure(6)
-    subplot(2,1,1)
-    plot(LeftLine(1,1:end),LeftLine(2,1:end),'k','LineWidth',1)
-    hold on, plot(RightLine(1,1:end), RightLine(2,1:end),'k','LineWidth',1)
-    hold on, plot(CenterLine(1,1:end),CenterLine(2,1:end), '--k','LineWidth',1)
-    hold on, plot(x_d,y_d, '--r')
-    hold on, plot(X(1:KC),Y(1:KC),color)
-    hold on, plot(x_d(KC:end)-0.1,y_d(KC:end)-0.01, color)
-    grid on
-    xlabel('X [m]')
-    ylabel('Y [m]')
-    subplot(2,1,2)
-        plot(LeftLine(1,1:end),LeftLine(2,1:end),'k','LineWidth',1)
-    hold on, plot(RightLine(1,1:end), RightLine(2,1:end),'k','LineWidth',1)
-    hold on, plot(CenterLine(1,1:end),CenterLine(2,1:end), '--k','LineWidth',1)
-    hold on, plot(x_d,y_d, '--r')
-    hold on, plot(X(1:KC),Y(1:KC),color)
-    hold on, plot(x_d(KC:end)-0.1,y_d(KC:end)-0.01, color)
-    grid on
-    xlabel('X [m]')
-    ylabel('Y [m]')
+color = 'g'
+figure(6)
+subplot(2,1,1)
+plot(LeftLine(1,1:end),LeftLine(2,1:end),'k','LineWidth',1)
+hold on, plot(RightLine(1,1:end), RightLine(2,1:end),'k','LineWidth',1)
+hold on, plot(CenterLine(1,1:end),CenterLine(2,1:end), '--k','LineWidth',1)
+hold on, plot(x_d,y_d, '--r')
+hold on, plot(X(1:KC),Y(1:KC),color)
+hold on, plot(x_d(KC:end)-0.1,y_d(KC:end)-0.01, color)
+grid on
+xlabel('X [m]')
+ylabel('Y [m]')
+subplot(2,1,2)
+plot(LeftLine(1,1:end),LeftLine(2,1:end),'k','LineWidth',1)
+hold on, plot(RightLine(1,1:end), RightLine(2,1:end),'k','LineWidth',1)
+hold on, plot(CenterLine(1,1:end),CenterLine(2,1:end), '--k','LineWidth',1)
+hold on, plot(x_d,y_d, '--r')
+hold on, plot(X(1:KC),Y(1:KC),color)
+hold on, plot(x_d(KC:end)-0.1,y_d(KC:end)-0.01, color)
+grid on
+xlabel('X [m]')
+ylabel('Y [m]')
 
 
 
+%% MEAN SQUARED ERRORS
 
-
-
-
-
-%%
 mse_xError      = sqrt((sum(X_ERR(1:end-50).^2))/length(X_ERR(1:end-50)))
 mse_yError      = sqrt((sum(Y_ERR(1:end-50).^2))/length(Y_ERR(1:end-50)))
 mse_thetaError  = sqrt((sum(THETA_ERR(1:end-50).^2))/length(THETA_ERR(1:end-50)))

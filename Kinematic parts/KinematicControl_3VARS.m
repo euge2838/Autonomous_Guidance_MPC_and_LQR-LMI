@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Eugenio Alcala Baselga
+% Date: 02/06/2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [ v_control, w_control, poles_checking_K ] = KinematicControl_3VARS( Kc, xD0, v_d, w_d, x_d, y_d, phi_d, V_vec, W_vec)
     %%%%%%%%%%%%%%%%%
     %

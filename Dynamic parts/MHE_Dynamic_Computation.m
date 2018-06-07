@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Eugenio Alcala Baselga
+% Date: 02/06/2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [XX_EST_VECTOR, Fric_Force, A_past, B_past] = MHE_Dynamic_Computation...
     ( Ts_Dcontrol, x_estimated, y_MHE, u_MHE, Kalman_Observer, Hp_obs, index_Dyn, ForceDist, Steer)
     
