@@ -32,11 +32,10 @@ The dynamic controller has been built as a state feedback controller but using t
 ## Running the tests
 
 For running this project you must include all the folder in the Matlab path. Then, just run 
-
 ```
-MAIN.m
+DISCRETE_KinDyn_MPC_SF.m
 ```
 
 
 ## References
-* fdfdfdsfs
+* Eugenio Alcalá, Vicenç Puig and Joseba Quevedo. TS-MPC for Autonomous Vehicles including a dynamic TS-MHE-UIO.
