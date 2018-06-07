@@ -15,10 +15,10 @@
 % When launching the script, first, it allows you to choose between the set
 % of possible algorithms.
 % There are 3 strategies:
-%   2.- DISCRETE frozen-MPC control. This method does not update the system
+%   1.- DISCRETE frozen-MPC control. This method does not update the system
 %       matrices during the prediction stage.
-%   3.- DISCRETE NL-MPC control. Non-linear version of this problem.
-%   4.- DISCRETE references-MPC control. This technique update the system
+%   2.- DISCRETE NL-MPC control. Non-linear version of this problem.
+%   3.- DISCRETE references-MPC control. This technique update the system
 %       matrices bu using the references provided by the traj. planner.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -429,7 +429,7 @@ color = 'b'; %[y m c r g b w k]
 %         hold on, plot(RADTODEG*w_d(1:KC),'--r')
 %         %hold on, plot(PLOT_U_KIN(2,1:KC),'g')
 %         %hold on, plot(W_EST(1,1:KC),'--black')
-%         ylabel('Ang. Vel. [บ/s]'), grid on
+%         ylabel('Ang. Vel. [ยบ/s]'), grid on
 %         %legend('Vehicle resp.','Planner ref.','MPC output') 
 %       subplot(2,2,3)
 %         hold on, plot(DYNAMIC_CA(1,1:KC),color);
@@ -437,7 +437,7 @@ color = 'b'; %[y m c r g b w k]
 %         ylabel('Force [N]'), grid on  
 %       subplot(2,2,4)
 %         hold on, plot(RADTODEG*DYNAMIC_CA(3,1:KC),color)
-%         ylabel('Steering Angle [บ]'), grid on
+%         ylabel('Steering Angle [ยบ]'), grid on
 
         
         figure(2)   
@@ -449,13 +449,13 @@ color = 'b'; %[y m c r g b w k]
         ylabel('Lateral error [m]'), grid on
       subplot(5,1,3)
         hold on, plot(RADTODEG*THETA_ERR(1:KC),color)
-        ylabel('Orientation error [บ]'), grid on
+        ylabel('Orientation error [ยบ]'), grid on
       subplot(5,1,4)
         hold on, plot(3.6*VEL_ERR(1:KC),color)
         ylabel('Vel error [km/h]'), grid on
       subplot(5,1,5)
         hold on, plot(RADTODEG*OMEGA_ERR(1:KC),color)
-        ylabel('Ang. Vel error [บ/s]'), grid on
+        ylabel('Ang. Vel error [ยบ/s]'), grid on
        
         
 %         figure(3)
@@ -506,7 +506,7 @@ hold on, plot(sim_time_vec(1,1:KC),RADTODEG*OMEGA(1:KC),color,'linewidth',0.8);
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*w_d(1:KC),'--r','linewidth',0.7);
 %hold on, plot(PLOT_U_KIN(2,1:KC),'g')
 %hold on, plot(W_EST(1,1:KC),'--black')
-ylabel('Angular velocity [บ/s]'), grid on
+ylabel('Angular velocity [ยบ/s]'), grid on
 xlabel('Time [s]')
 
 figure(2)
@@ -516,7 +516,7 @@ hold on, plot(sim_time_vec(1,1:KC),DYNAMIC_CA(2,1:KC),color,'linewidth',0.8);   
 ylabel('Force [N]'), grid on  
 subplot(2,1,2)
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*DYNAMIC_CA(3,1:KC),color,'linewidth',0.8);
-ylabel('Steering Angle [บ]'), grid on
+ylabel('Steering Angle [ยบ]'), grid on
 
 
 figure(3)   
@@ -528,13 +528,13 @@ hold on, plot(sim_time_vec(1,1:KC),Y_ERR(1:KC),color,'linewidth',0.8);
 title('Lateral error [m]'), grid on
 subplot(5,1,3)
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*THETA_ERR(1:KC),color,'linewidth',0.8);
-title('Orientation error [บ]'), grid on
+title('Orientation error [ยบ]'), grid on
 subplot(5,1,4)
 hold on, plot(sim_time_vec(1,1:KC),3.6*VEL_ERR(1:KC),color,'linewidth',0.8);
 title('Lnear velocity error [km/h]'), grid on
 subplot(5,1,5)
 hold on, plot(sim_time_vec(1,1:KC),RADTODEG*OMEGA_ERR(1:KC),color,'linewidth',0.8);
-title('Angular elocity error [บ/s]'), grid on
+title('Angular elocity error [ยบ/s]'), grid on
         
 %%
 figure(4)
