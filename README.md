@@ -35,7 +35,13 @@ For running this project you must include all the folder in the Matlab path. The
 ```
 DISCRETE_KinDyn_MPC_SF.m
 ```
-
+At this point you are going to be asked about what algorithm to choose between three.
+```
+1.- DISCRETE frozen-MPC control 
+2.- DISCRETE NL-MPC control 
+3.- DISCRETE References-MPC control 
+```
+In every case the dynamic control is the same.
 
 ## References
 * Eugenio Alcalá, Vicenç Puig and Joseba Quevedo. TS-MPC for Autonomous Vehicles including a dynamic TS-MHE-UIO.
