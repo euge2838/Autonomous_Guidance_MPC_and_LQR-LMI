@@ -44,7 +44,7 @@ At this point you are going to be asked about what algorithm to choose between t
 In every case the dynamic control is the same.
 
 
-![alt text](https://github.com/euge2838/Autonomous_Guidance_MPC_and_LQR-LMI/blob/master/circuit.eps)
+![alt text](https://github.com/euge2838/Autonomous_Guidance_MPC_and_LQR-LMI/blob/master/circuit.png)
 
 
 ## References
