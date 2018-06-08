@@ -43,5 +43,9 @@ At this point you are going to be asked about what algorithm to choose between t
 ```
 In every case the dynamic control is the same.
 
+
+![alt text](http://url/to/img.png)
+
+
 ## References
 * Eugenio Alcalá, Vicenç Puig and Joseba Quevedo. TS-MPC for Autonomous Vehicles including a dynamic TS-MHE-UIO.
